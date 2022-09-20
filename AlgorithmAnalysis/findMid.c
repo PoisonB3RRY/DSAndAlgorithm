@@ -8,9 +8,8 @@ void main()
                    2,
                    3,
                    4,
-                   5,
-                   6};
-    int target = 7;
+                   5, 6, 7, 8, 9, 10};
+    int target = 3;
     int N = sizeof(array) / sizeof(int);
     printf("array size: %d\n", N);
     int result = findMid(array, target, N);
