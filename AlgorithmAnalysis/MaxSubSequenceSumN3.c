@@ -33,11 +33,13 @@ int MaxSubSequenceSum(const int A[], int N) {
       if (ThisSum > MaxSum) {
         MaxSum = ThisSum;
         int l, temp;
-        for (l = 0, temp = j; temp <= i; temp++, l++) {
-          p[l] = A[temp];
+        for (temp = j; temp <= i; temp++) {
+          *p = A[temp];
+          ++p;
         }
-        while (l++ < N) {
-          *(p++) = 0;
+        while(temp++ <N)
+        {
+            *(p++)=0;
         }
         p = MaxSequence;
       }
