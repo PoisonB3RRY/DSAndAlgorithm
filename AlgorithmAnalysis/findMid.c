@@ -10,7 +10,7 @@ void main()
                    4,
                    5,
                    6};
-    int target = 4;
+    int target = 7;
     int N = sizeof(array) / sizeof(int);
     printf("array size: %d\n", N);
     int result = findMid(array, target, N);
@@ -23,19 +23,20 @@ int findMid(const int ElementArray[], int X, int N)
 
     High = N - 1;
     Low = 0;
-
+    Mid = (High - Low) / 2;
     while (Low <= High)
     {
-        Mid = (High - Low) / 2;
         if (ElementArray[Mid] > X)
         {
             High = Mid - 1;
             printf("High = %d\n", High);
+            Mid = (High - Low) / 2;
         }
         else if (ElementArray[Mid] < X)
         {
             Low = Mid + 1;
             printf("Low = %d\n", Low);
+            Mid = Low + (High - Low) / 2;
         }
         else
         {
