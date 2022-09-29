@@ -38,3 +38,16 @@ Position Find(ElementType X, List l)
 
     return p;
 }
+
+Position FindPrevious(ElementType X, List l)
+{
+    Position p;
+
+    p = l->next;
+    while (p != NULL && p->element != X)
+    {
+        p = p -> next;
+    }
+
+    return --p;
+}
