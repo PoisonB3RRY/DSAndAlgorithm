@@ -51,3 +51,17 @@ Position FindPrevious(ElementType X, List l)
 
     return --p;
 }
+
+void Delete(ElementType X, List l)
+{
+    Position P, TmpCell;
+
+    P=FindPrevious(X,L);
+
+    if(!IsLast(X,L))
+    {
+        TmpCell = P->Next;
+        P->Next = TmpCell -> Next;
+        free(TmpCell);
+    }
+}
