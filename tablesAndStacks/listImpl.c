@@ -43,6 +43,9 @@ void main(int argc, char **argv)
         p = p->next;
         printf("%c\n", p->element);
     }
+
+    free(head);
+    free(node);
 }
 
 /* Return true if list is empty */
