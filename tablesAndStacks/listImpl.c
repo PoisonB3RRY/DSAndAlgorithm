@@ -41,11 +41,17 @@ void main(int argc, char **argv)
     while (p->next != NULL)
     {
         p = p->next;
-        printf("%c\n", p->element);
+        printf("0x%x %c\n", p, p->element);
     }
 
+    printf("0x%x\n", head);
     free(head);
-    free(node);
+    for (int i = 0; i < lenString + 1; ++i)
+    {
+        printf("0x%x\n", node);
+        free(node);
+        --node;
+    }
 }
 
 /* Return true if list is empty */
