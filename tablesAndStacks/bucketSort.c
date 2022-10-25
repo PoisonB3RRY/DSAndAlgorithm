@@ -1,23 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+struct bucketSortNode
+{
+    int order;
+    int number;
+    struct bucketSortNode *next;
+};
+
+typedef struct bucketSortNode *bucket;
+typedef struct bucketSortNode *BSNode;
+
 
 int* bucketSort(int *array, int len);
 int max(int arr[], int len);
 int getMaxDegree(int number);
+void addToLast(int target, bucket b);
+int getNumberFromBSNode(bucket b, int position);
+void initBucketArray(bucket arr);
 
-struct bucketSortNode
-{
-    int degree;
-    int number;
-    bucketSortNode *next;
-} *BSNode;
-
-typedef struct bucketSortNode *bucket;
 
 void main()
 {
     int array[] = {1, 65, 789, 4, 8, 101, 45, 62};
     int len = sizeof(array) / sizeof(int);
+
+    printf("original array len is %d\n", len);
 
     int* result;
     result = bucketSort(array, len);
@@ -33,6 +43,8 @@ int* bucketSort(int array[], int len)
     int maxDegree, sortCount;
     maxDegree = getMaxDegree(max(array, len));
 
+    printf("maxDegree is %d\n", maxDegree);
+
     //复制源数组至临时数组
     int tmpArray[len];
     for (int i = 0; i < len; ++i)
@@ -40,32 +52,56 @@ int* bucketSort(int array[], int len)
         tmpArray[i] = array[i];
     }
 
-    //构建桶数组
-    struct BSNode bsArray[10];
+    //构建桶数组，并在每个位置上加入空的头结点
+    struct bucketSortNode bsArray[10];
+    initBucketArray(bsArray);
+
+    sortCount = 0;
 
     //开始多次桶排序
     while (sortCount < maxDegree)
     {
+
+        //构建本次排序的零时桶数组,将bsArray拷贝进去
+        struct bucketSortNode tempBSNodeArray[10];
+
+        memcpy(tempBSNodeArray, bsArray, 10 * sizeof(struct bucketSortNode));
+        initBucketArray(bsArray);
+
         int index = (int)pow(10, sortCount + 1);
-        for (int j = 0; j < 10; ++j)
+        for (int j = 0; j < len; ++j)
         {
             int order = tmpArray[j] % index;
 
-
+            addToLast(tmpArray[j], tempBSNodeArray + order);
         }
 
+        memcpy(bsArray, tempBSNodeArray, 10 * sizeof(struct bucketSortNode));
+
         ++sortCount;
+        printf("%d\n", sortCount);
     }
 
-    sortCount = 0;
-    while (sortCount < maxDegree)
+    int resultArray[len];
+    int resultArrayCounter;
+
+    for (int i = 0; i < 10; ++i)
     {
-        //排序
+        BSNode bPtr;
+        bPtr = &bsArray[i];
 
-
+        while (resultArrayCounter < len)
+        {
+            if (bPtr->next != NULL)
+            {
+                resultArray[resultArrayCounter] = bPtr->number;
+            }
+            ++resultArrayCounter;
+        }
     }
 
-    return NULL;
+
+    return resultArray;
 }
 
 int max(int array[], int len)
@@ -82,6 +118,7 @@ int max(int array[], int len)
             max = array[i];
         }
     }
+
     return max;
 }
 
@@ -91,10 +128,10 @@ int getMaxDegree(int number)
 
     count = 0;
 
-    while (number % 10 != 0)
+    while (number / 10 != 0)
     {
-        count++;
-        number = number % 10;
+        ++count;
+        number = number / 10;
     }
 
     result = count + 1;
@@ -105,9 +142,39 @@ int getMaxDegree(int number)
 void addToLast(int target, bucket b)
 {
     BSNode node;
-    node = malloc(sizeof(struct bucketSortNode));
+    node = (struct bucketSortNode *)malloc(sizeof(struct bucketSortNode));
 
     node->order = b->order;
     node->number = target;
     node->next = NULL;
+
+    while (b->next != NULL)
+    {
+        ++b;
+    }
+
+    b->next = node;
+
+}
+
+int getNumberFromBSNode(bucket b, int position)
+{
+    for (int i = 0; i < position; ++i)
+    {
+        ++b;
+    }
+    return b->number;
+}
+
+void initBucketArray(bucket arr)
+{
+    for (int k = 0; k < 10; ++k)
+    {
+        BSNode headNode;
+        headNode = (struct bucketSortNode *)malloc(sizeof(struct bucketSortNode));
+        headNode->number = NULL;
+        headNode->order = k;
+        headNode->next = NULL;
+        memcpy(arr + k, headNode, sizeof(struct bucketSortNode));
+    }
 }
