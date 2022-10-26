@@ -183,7 +183,10 @@ void initBucketArray(bucket arr)
     for (int k = 0; k < 10; ++k)
     {
         BSNode headNode;
-        headNode = (struct bucketSortNode *)calloc(1, sizeof(struct bucketSortNode));
+        if (arr->order == NULL)
+        {
+            headNode = (struct bucketSortNode *)malloc(sizeof(struct bucketSortNode));
+        }
         headNode->number = NULL;
         headNode->order = k;
         headNode->next = NULL;
