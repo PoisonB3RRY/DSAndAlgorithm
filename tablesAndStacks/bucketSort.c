@@ -65,7 +65,7 @@ int *bucketSort(int array[], int len)
 
     for (int m = 0; m < 10; ++m)
     {
-      memcpy(tempBSNodeArray + m, bsArray + m, sizeof(struct bucketSortNode));
+      memcpy(&tempBSNodeArray[m], &bsArray[m], sizeof(struct bucketSortNode));
       printf("m = %d\n", m);
     }
 
@@ -77,12 +77,12 @@ int *bucketSort(int array[], int len)
     {
       int order = (tmpArray[j] / index) % index;
 
-      addToLast(tmpArray[j], tempBSNodeArray + order);
+      addToLast(tmpArray[j], &tempBSNodeArray[order]);
     }
 
     for (int n = 0; n < 10; ++n)
     {
-      memcpy(bsArray + n, tempBSNodeArray + n, sizeof(struct bucketSortNode));
+      memcpy(&bsArray[n], &tempBSNodeArray[n], sizeof(struct bucketSortNode));
       printf("n = %d\n", n);
     }
     // memcpy(bsArray, tempBSNodeArray, 10 * sizeof(struct bucketSortNode));
