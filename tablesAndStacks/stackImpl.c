@@ -56,3 +56,28 @@ void MakeEmpty(Stack S)
         }
     }
 }
+
+Stack CreateStack()
+{
+    Stack S;
+
+    S = (struct Node *)malloc(sizeof(struct Node));
+    if (S->next == NULL)
+    {
+        printf("Out Of Memory");
+    }
+
+    S->next = NULL;
+    MakeEmpty(S);
+    return S;
+}
+
+ElementType Top(Stack S)
+{
+    if (!IsEmpty(S))
+    {
+        return S->next->Element;
+    }
+    printf("Stack is Empty!\n");
+    return 0;
+}
