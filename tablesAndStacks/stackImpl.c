@@ -16,7 +16,7 @@ void Push(ElementType element, Stack S)
     TmpCell = (struct Node *)malloc(sizeof(struct Node));
     if (TmpCell == NULL)
     {
-        FatalError("Out Of Memory");
+        printf("Out Of Memory");
     }
     TmpCell->Element = element;
     TmpCell->next = S->next;

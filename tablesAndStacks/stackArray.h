@@ -1,3 +1,5 @@
+/* 栈的数组实现方法 */
+
 #ifndef _Stack_h
 
 struct Node;
@@ -16,8 +18,12 @@ void Pop(Stack S);
 
 /* Place in implementation file */
 /* Stack implementation is a linked list with a header */
+
+#define EmptyEOS -1
+#define MinStackSize 5
 struct Node
 {
-    ElementType Element;
-    PtrToNode next;
+    int Capacity;
+    int TopOfStack;
+    ElementType *Array;
 };
