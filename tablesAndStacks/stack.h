@@ -8,9 +8,8 @@ int IsEmpty(Stack S);
 Stack CreateStack(void);
 void DisposeStack(Stack S); //释放栈
 void MakeEmpty(Stack S);
-void Push(ElementType X, Stack S);
-ElementType Top(Stack S);
-void Pop(Stack S);
+void Enqueue(ElementType X, Stack S);
+ElementType Dequeue(Stack S);
 
 #endif /* _Stack_h */
 
