@@ -78,3 +78,13 @@ void Dequeue(Queue q)
     q->Front++;
     return result;
 }
+
+ElementType Front(Queue q)
+{
+
+}
+
+ElementType FrontAndDequeue(Queue q)
+{
+    
+}
