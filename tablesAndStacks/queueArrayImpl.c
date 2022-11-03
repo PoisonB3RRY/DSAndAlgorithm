@@ -72,19 +72,33 @@ void Dequeue(Queue q)
         exit(0);
     }
 
-    ElementType result;
     q->Size--;
-    result = q->Front;
     q->Front++;
-    return result;
 }
 
 ElementType Front(Queue q)
 {
+    if (q == NULL)
+    {
+        printf("Queue is Empty\n");
+        exit(0);
+    }
 
+    return q->Array[Front];
+    
 }
 
 ElementType FrontAndDequeue(Queue q)
 {
-    
+    if (IsEmpty(q))
+    {
+        printf("Queue is Empty\n");
+        exit(0);
+    }
+
+    ElementType result;
+    q->Size--;
+    result = q->Array[Front];
+    q->Front++;
+    return result;
 }
